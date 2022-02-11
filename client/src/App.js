@@ -1,8 +1,12 @@
-
-
+import Home from "./pages/Home";
+ 
 function App() {
   return (
-    <h1>Career huntR</h1>
+    <div>
+      <h1>Career huntR</h1>
+      <Home/>
+    </div>
+    
   );
 }
 
