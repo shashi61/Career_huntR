@@ -27,7 +27,7 @@ function Register() {
   };
   return (
     <Wrapper className="full-page">
-      <form className="form" onSubmit={onSubmit}>
+      <form className="form section" onSubmit={onSubmit}>
         { values.showAlert && <Alert /> }
         <div className="section">
           <div className="container">
