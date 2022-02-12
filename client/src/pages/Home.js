@@ -1,13 +1,13 @@
-import logo from '../assets/images/logo.png'
-import main from '../assets/images/main.jpeg'
-import Wrapper from '../assets/images/Wrappers/Home'
+import { Logo } from '../components'
+import main from '../assets/images/main.svg'
+import Wrapper from '../assets/wrappers/homeCss'
 
 
 const Home = () => {
   return (
     <Wrapper>
       <nav>
-        <img src={logo} alt="Career HuntR" className="logo" width="70" height="50" />
+       <Logo/>
       </nav>
       <div className='container page'>
         {/* info */}
