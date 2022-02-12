@@ -1,19 +1,19 @@
-import Home from "./pages/Home";
+import { Home, Error, Dashboard, Register } from "./pages";
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 function App() {
   return (
       <BrowserRouter>
-       <nav>
+       {/* <nav>
         <Link to='/'>Dashboard</Link>
         <Link to='/register'>Register</Link>
         <Link to='/home'>Home</Link>
-      </nav>
+      </nav> */}
         <Routes>
-          <Route path="/" element={<div>Dashboard</div>} />
-          <Route path="/register" element={<div>Register</div>} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/home" element={<Home />} />
-          <Route path="*" element={<div>Error</div>} />
+          <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>
     
