@@ -1,9 +1,11 @@
 import logo from '../assets/images/logo.png'
 import main from '../assets/images/main.jpeg'
+import Wrapper from '../assets/images/Wrappers/Home'
+
 
 const Home = () => {
   return (
-    <main>
+    <Wrapper>
       <nav>
         <img src={logo} alt="Career HuntR" className="logo" width="70" height="50" />
       </nav>
@@ -25,7 +27,7 @@ const Home = () => {
         </div>
         <img src={main} alt='job hunt' className='img main-img' />
       </div>
-    </main>
+    </Wrapper>
   )
 }
 
