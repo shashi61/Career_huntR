@@ -11,7 +11,7 @@ const Home = () => {
         {/* info */}
         <div className='info'>
           <h1>
-            carrer <span>track</span> app
+            career <span>track</span> app
           </h1>
           <p>
             I'm baby wayfarers hoodie next level taiyaki brooklyn cliche blue
