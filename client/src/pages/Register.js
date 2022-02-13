@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { FormRow, Logo, Alert } from "../components";
 import Wrapper from "../assets/wrappers/registerCss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useAppContext } from '../context/appContext'
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faUser, faAt } from "@fortawesome/free-solid-svg-icons";
 
 const initialState = {
@@ -9,12 +10,13 @@ const initialState = {
   email: "",
   password: "",
   isMember: true,
-  showAlert: false
+  
 };
 
 function Register() {
   const [values, setValues] = useState(initialState);
 
+  const { isLoading, showAlert } = useAppContext()
   // global context and useNavigate later
 
   const handleChange = (e) => {
@@ -28,7 +30,7 @@ function Register() {
   return (
     <Wrapper className="full-page">
       <form className="form section" onSubmit={onSubmit}>
-        { values.showAlert && <Alert /> }
+        { showAlert && <Alert /> }
         <div className="section">
           <div className="container">
             <div className="row full-height justify-content-center">
