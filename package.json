@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/shashi61/Career_huntR#readme",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "express": "^4.17.2"
   },
   "devDependencies": {

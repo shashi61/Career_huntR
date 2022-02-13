@@ -1,7 +1,14 @@
 import express from 'express'
+const app = express()
+
+//env
+import dotenv from 'dotenv'
+dotenv.config()
+
+//middleware
 import notFoundMiddleware from "./middleware/not-found.js"
 import errorHandlerMiddleware from './middleware/error-handler.js'
-const app = express()
+
 
 app.get('/', (req, res) => {
     throw new Error('error')
