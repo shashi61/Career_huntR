@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FormRow, Logo, Alert } from "../components";
 import Wrapper from "../assets/wrappers/registerCss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faUser, faAt } from "@fortawesome/free-solid-svg-icons";
 
 const initialState = {
