@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { FormRow, Logo, Alert } from "../components";
-import './Register.css';
 import Wrapper from "../assets/wrappers/registerCss";
 import { useAppContext } from '../context/appContext'
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
