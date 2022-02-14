@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const FormRow = ({ type, name, value, handleChange,  fontAwesome}) => {
+const FormRow = ({ type, name, value, handleChange, fontAwesome}) => {
   return (
     <div className="form-group">
       <input
@@ -11,7 +11,7 @@ const FormRow = ({ type, name, value, handleChange,  fontAwesome}) => {
         className="form-style"
         placeholder={`Your ${name}`}
         
-        autocomplete="off"
+        autoComplete="off"
       />
       <FontAwesomeIcon
         className="input-icon uil uil-at"

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { FormRow, Logo, Alert } from "../components";
 import Wrapper from "../assets/wrappers/registerCss";
+import { useAppContext } from '../context/appContext'
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faUser, faAt } from "@fortawesome/free-solid-svg-icons";
 
@@ -9,26 +10,34 @@ const initialState = {
   email: "",
   password: "",
   isMember: true,
-  showAlert: false
+  
 };
 
 function Register() {
   const [values, setValues] = useState(initialState);
 
+  const { isLoading, showAlert, displayAlert } = useAppContext()
   // global context and useNavigate later
 
   const handleChange = (e) => {
-    console.log(e.target);
+    setValues({ ...values, [e.target.name]: e.target.value })
   };
 
   const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(e.target);
-  };
+    e.preventDefault()
+    const { name, email, password, isMember } = values
+    if (!email || !password || (!isMember && !name)) {
+      displayAlert()
+      return
+    }
+    console.log(values)
+  }
+  
   return (
-    <Wrapper className="full-page">
+    <Wrapper className="full-page outline" >
       <form className="form section" onSubmit={onSubmit}>
-        { values.showAlert && <Alert /> }
+      {showAlert && <Alert />}
+        
         <div className="section">
           <div className="container">
             <div className="row full-height justify-content-center">
@@ -44,7 +53,7 @@ function Register() {
                     id="reg-log"
                     name="reg-log"
                   />
-                  <label for="reg-log"></label>
+                  <label htmlFor="reg-log"></label>
                   <div className="card-3d-wrap mx-auto">
                     <div className="card-3d-wrapper">
                       <div className="card-front">
@@ -54,7 +63,7 @@ function Register() {
                             <FormRow
                               type="email"
                               name="email"
-                              value={values.name}
+                              value={values.email}
                               handleChange={handleChange}
                               fontAwesome={faAt}
                             />
@@ -66,7 +75,7 @@ function Register() {
                               handleChange={handleChange}
                               fontAwesome={faLock}
                             />
-                            <button type="submit" className="btn mt-4">
+                            <button type="submit" className="btn mt-4" disabled={isLoading}>
                               submit
                             </button>
                             <p className="mb-0 mt-4 text-center">
@@ -91,7 +100,7 @@ function Register() {
                             <FormRow
                               type="email"
                               name="email"
-                              value={values.name}
+                              value={values.email}
                               handleChange={handleChange}
                               fontAwesome={faAt}
                             />
@@ -103,7 +112,7 @@ function Register() {
                               handleChange={handleChange}
                               fontAwesome={faLock}
                             />
-                            <button type="submit" className="btn mt-4">
+                            <button type="submit" className="btn mt-4" disabled={isLoading}>
                               submit
                             </button>
                             {/* <a href="#" className="btn mt-4">submit</a> */}
@@ -117,30 +126,7 @@ function Register() {
             </div>
           </div>
         </div>
-
-        {/* commented */}
-        {/* <Logo />
-        <h3>Login</h3>
-
-        
-        <div className='form-row'>
-          <label htmlFor='name' className='form-label'>
-            name
-          </label>
-
-          <input
-            type='text'
-            value={values.name}
-            name='name'
-            onChange={handleChange}
-            className='form-input'
-          />
-        </div>
-
-        <button type='submit' className='btn btn-block'>
-          submit
-        </button> */}
-      </form>
+       </form>
     </Wrapper>
   );
 }
