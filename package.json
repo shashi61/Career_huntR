@@ -4,12 +4,11 @@
   "description": "",
   "main": "index.js",
   "type": "module",
-
-"scripts": {
-  "server": "nodemon server --ignore client",
-  "client": "npm start --prefix client",
-  "start": "concurrently --kill-others-on-fail \"npm run server\" \" npm run client\""
-},
+  "scripts": {
+    "server": "nodemon server --ignore client",
+    "client": "npm start --prefix client",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \" npm run client\""
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shashi61/Career_huntR.git"
