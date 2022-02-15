@@ -31,6 +31,8 @@ const UserSchema = new Mongoose.Schema({
   },
 })
 //will trigger in the authcontroller where a user is being created
-
+UserSchema.pre('save', function(){
+  console.log(this.password);
+})
 
 export default mongoose.model('User', UserSchema);
