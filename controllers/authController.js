@@ -1,7 +1,25 @@
-import { userInfo } from "os"
+import User from '../models/User.js'
+import {StatusCodes} from 'http-status-codes'
+import {BadRequestError, NotFoundError} from '../errors/index.js'
+
 
 const register = async (req, res) =>{
-    res.send("register user")
+  //pull out the values from req.body and set it to name, email and password
+      const {name, email, password} = req.body
+      
+      //check empty values
+      if(!name || !email || !password) {
+        //invoke the instance CustomeAPIError
+        throw new BadRequestError('please provide all values')
+      }
+      const userAlreadyExists = await User.findOne({email});
+      if(userAlreadyExists){
+        throw new BadRequestError ('Email already is use')
+      }
+      
+      const user = await User.create(name, email, password)
+      res.status(StatusCodes.CREATED).json({user})
+    
 }
 const login = async (req, res) =>{
   res.send("login user")

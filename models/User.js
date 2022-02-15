@@ -1,7 +1,7 @@
-import  mongoose  from "mongoose";
+import mongoose from "mongoose";
 import validator from 'validator';
 
-const UserSchema = new Mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Please provide name'],
@@ -12,23 +12,29 @@ const UserSchema = new Mongoose.Schema({
   email: {
     type: String,
     required: [true, 'Please provide email'],
-    unique: true,
     validate: {
       validator: validator.isEmail,
-      messsage: 'Please provide a valid email'
-    }
+      messsage: 'Please provide a valid email',
+    },
+    unique: true,
   },
   password: {
     type: String,
-    required: [true, 'Please provide   password: {'],
+    required: [true, 'Please provide password'],
     minlength: 6,
   },
   lastName: {
     type: String,
     trim: true,
     maxlength: 20,
-    dafault: 'my city',
+    default: 'lastName',
   },
+  location: {
+    type: String,
+    trim: true,
+    maxlength: 20,
+    default: 'my city',
+  }
 })
 //will trigger in the authcontroller where a user is being created
 
