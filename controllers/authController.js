@@ -8,7 +8,7 @@ const login = async (req, res) =>{
 }
 const updateUser = async (req, res) =>{
   res.send("update user")
- 
+  user.save()
 }
 
 export { register, login, updateUser }
