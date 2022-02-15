@@ -1,13 +1,23 @@
 import User from '../models/User.js'
 import {StatusCodes} from 'http-status-codes'
 
+//use Error class
+class CustomeAPIError extends Error {
+  constructor(message){
+    super(message)
+    //add status code by adding property StatusCodes on the instance 
+    this.statusCode = StatusCodes.BAD_REQUEST //set to 400 error
+  }
+}
+
 const register = async (req, res) =>{
   //pull out the values from req.body and set it to name, email and password
       const {name, email, password} = req.body
       
       //check empty values
       if(!name || !email || !password) {
-        throw new Error('please provide all values')
+        //invoke the instance CustomeAPIError
+        throw new CustomeAPIError('please provide all values')
       }
       
       
