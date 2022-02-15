@@ -30,5 +30,7 @@ const UserSchema = new Mongoose.Schema({
     dafault: 'my city',
   },
 })
+//will trigger in the authcontroller where a user is being created
+UserSchema.pre('save')
 
 export default mongoose.model('User', UserSchema);
