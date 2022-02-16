@@ -4,12 +4,13 @@ import { useAppContext } from '../context/appContext'
 import Logo from './Logo'
 import Wrapper from '../assets/wrappers/navBarCss'
 const Navbar = () => {
-  const { toggleSidebar } = useAppContext()
+  const { user, toggleSidebar, logoutUser } = useAppContext()
+  const [showLogout, setShowLogout] = useState(false)
   return (
     <Wrapper>
       <div className='nav-center'>
         <button
-        type="button"
+          type="button"
           className='toggle-btn'
           onClick={toggleSidebar}
         >
@@ -22,17 +23,13 @@ const Navbar = () => {
         </div>
 
         <div className='btn-container'>
-          <button type="button" className='btn' onClick={() => console.log('show logout') }>
+          <button className='btn' onClick={() => setShowLogout(!showLogout)}>
             <FaUserCircle />
-            Shashi 
+            {user?.name}
             <FaCaretDown />
           </button>
-          <div className='dropdown show-dropdown'>
-            <button
-            type="button"
-              onClick={() => console.log('logout user')}
-              className='dropdown-btn'
-            >
+          <div className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
+            <button onClick={() => logoutUser()} className='dropdown-btn'>
               logout
             </button>
           </div>

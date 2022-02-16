@@ -1,5 +1,5 @@
 import React, { useReducer, useContext } from 'react'
-import { DISPLAY_ALERT, CLEAR_ALERT, TOGGLE_SIDEBAR } from './actions'
+import { DISPLAY_ALERT, CLEAR_ALERT, TOGGLE_SIDEBAR, LOGOUT_USER } from './actions'
 
 import reducer from './reducer'
 
@@ -35,12 +35,18 @@ const AppProvider = ({ children }) => {
     dispatch({ type: TOGGLE_SIDEBAR })
   }
 
+  const logoutUser = () => {
+    dispatch({ type: LOGOUT_USER })
+    // removeUserFromLocalStorage()
+  }
+
   return (
     <AppContext.Provider
       value={{
         ...state,
       displayAlert, 
-      toggleSidebar
+      toggleSidebar,
+      logoutUser
       }}
     >
       {children}
