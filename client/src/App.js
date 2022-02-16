@@ -1,4 +1,4 @@
-import { Home, Error, Dashboard, Register } from "./pages";
+import { Home, Error, Register } from "./pages";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
         <Link to='/home'>Home</Link>
       </nav> */}
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<div>dashboard</div>} />
           <Route path="/register" element={<Register />} />
           <Route path="/home" element={<Home />} />
           <Route path="*" element={<Error />} />
