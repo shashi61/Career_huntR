@@ -39,10 +39,17 @@ const AppProvider = ({ children }) => {
     }, 3000);
   };
 // Local Storage
+
   const addUserToLocalStorage = ({ user, token, location }) => {
     localStorage.setItem('user', JSON.stringify(user))
     localStorage.setItem('token', token)
     localStorage.setItem('location', location)
+  }
+
+  const removeUserFromLocalStorage = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    localStorage.removeItem('location')
   }
 
   const registerUser = async (currentUser) => {
