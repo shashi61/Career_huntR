@@ -4,7 +4,7 @@ import {BadRequestError, NotFoundError} from '../errors/index.js'
 
 
 const register = async (req, res) =>{
-  //pull out the values from req.body and set it to name, email and password
+  // pull out the values from req.body and set it to name, email and password
       const {name, email, password} = req.body
       
       //check empty values
@@ -17,11 +17,10 @@ const register = async (req, res) =>{
         throw new BadRequestError ('Email already is use')
       }
       
-      const user = await User.create(name, email, password)
-      //invoking the token
-     const token = user.createJWT()
+      const user = await User.create({name, email, password})
+      const token = user.createJWT()
       res.status(StatusCodes.CREATED).json({user:{email:user.email, lastname:user.lastname, location:user.location, name:user.name }, token, location: user.location})
-    
+
 }
 const login = async (req, res) =>{
   res.send("login user")
@@ -29,6 +28,7 @@ const login = async (req, res) =>{
 const updateUser = async (req, res) =>{
   res.send("update user")
   user.save()
+
 }
 
 export { register, login, updateUser }
