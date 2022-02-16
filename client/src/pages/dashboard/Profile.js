@@ -1,12 +1,12 @@
-const AddJob = () => {
+const Profile = () => {
     return (
             <div>
                 <h1>
-                    Add Job
+                   Profile
                 </h1>
           
             </div>
 
     )
 }
-export default AddJob
+export default Profile

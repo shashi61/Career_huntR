@@ -1,12 +1,12 @@
-const AddJob = () => {
+const Stats = () => {
     return (
             <div>
                 <h1>
-                    Add Job
+                   Stats
                 </h1>
           
             </div>
 
     )
 }
-export default AddJob
+export default Stats

@@ -1,12 +1,12 @@
-const AddJob = () => {
+const SharedLayout = () => {
     return (
             <div>
                 <h1>
-                    Add Job
+                    SharedLayout
                 </h1>
           
             </div>
 
     )
 }
-export default AddJob
+export default SharedLayout
