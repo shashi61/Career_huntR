@@ -1,6 +1,6 @@
 import User from '../models/User.js'
 import {StatusCodes} from 'http-status-codes'
-import {BadRequestError, NotFoundError} from '../errors/index.js'
+import {BadRequestError, UnAuthenticateError} from '../errors/index.js'
 
 
 const register = async (req, res) =>{
@@ -18,14 +18,46 @@ const register = async (req, res) =>{
       }
       
       const user = await User.create(name, email, password)
-      res.status(StatusCodes.CREATED).json({user})
+      user.createJWT()
+      //invoking the token
+     const token = user.createJWT()
+      res.status(StatusCodes.CREATED).json({
+        user:{
+          email:user.email, 
+          lastname:user.lastname, 
+          location:user.location, 
+          name:user.name 
+        }, 
+         token, 
+         location: user.location})
     
 }
 const login = async (req, res) =>{
-  res.send("login user")
+  const {email, password} = req.body
+  if (!email || !password){
+    throw new BadRequestError('Please provide all values')
+  }
+
+  //override to find password by adding.select(+password)
+  const user = await User.findOne({ email }).select('+password')
+
+  if (!user) {
+    throw new UnAuthenticateError('Invalid Credentials')
+  }
+  console.log(user);
+
+  const isPasswordCorrect = await user.comparePassword(password);
+
+  if (!isPasswordCorrect) {
+    throw new UnAuthenticateError('Invalid Credentials')
+  }
+  const token = user.createJWT()
+
+  res.status(StatusCodes.OK).json({ user, token, location: user.location })
 }
 const updateUser = async (req, res) =>{
-  res.send("update user")
+  res.send(' updateUser ')
+  
 }
 
 export { register, login, updateUser }

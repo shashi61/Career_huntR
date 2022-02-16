@@ -11,4 +11,4 @@ class UnAuthenticatedError extends CustomeAPIError {
   }
 }
 
-export default BadRequestError
+export default UnAuthenticatedError
