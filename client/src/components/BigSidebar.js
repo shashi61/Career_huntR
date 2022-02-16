@@ -1,10 +1,24 @@
+import { useAppContext } from '../context/appContext'
+import NavLinks from './NavLinks'
+import Logo from '../components/Logo'
 import Wrapper from '../assets/wrappers/bigBarCss'
-import {FaHome} from 'react-icons/fa'
+
 const BigSidebar = () => {
+  const { showSidebar, toggleSidebar } = useAppContext()
   return (
     <Wrapper>
-      <h4>BigSidebar</h4>
-      <FaHome />
+      <div
+        className={
+          showSidebar ? 'sidebar-container ' : 'sidebar-container show-sidebar'
+        }
+      >
+        <div className='content'>
+          <header>
+            <Logo />
+          </header>
+          <NavLinks toggleSidebar={toggleSidebar}/>
+        </div>
+      </div>
     </Wrapper>
   )
 }
