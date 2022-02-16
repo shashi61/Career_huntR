@@ -1,22 +1,24 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import { FormRow, Logo, Alert } from "../components";
 import Wrapper from "../assets/wrappers/registerCss";
 import { useAppContext } from '../context/appContext'
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faUser, faAt } from "@fortawesome/free-solid-svg-icons";
 
 const initialState = {
   name: "",
   email: "",
   password: "",
-  isMember: true,
+  isMember: false,
   
 };
 
-function Register() {
+const  Register = () => {
+  // const { user } = useAppContext();
+  const navigate = useNavigate();
   const [values, setValues] = useState(initialState);
 
-  const { isLoading, showAlert, displayAlert } = useAppContext()
+  const { user, isLoading, showAlert, displayAlert, registerUser } = useAppContext()
   // global context and useNavigate later
 
   const handleChange = (e) => {
@@ -30,8 +32,24 @@ function Register() {
       displayAlert()
       return
     }
-    console.log(values)
+    const currentUser = { name, email, password }
+    if(isMember) {
+      console.log('already a member');
+    }
+    else {
+      registerUser(currentUser)
+    }
   }
+
+  // user navigate to dashboard after 3 sec
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate('/')
+      }, 3000)
+    }
+  }, [user, navigate])
+
   
   return (
     <Wrapper className="full-page outline" >
