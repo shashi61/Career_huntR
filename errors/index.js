@@ -3,4 +3,4 @@ import NotFoundError from "./not-found.js";
 
 
 
-export {BadRequestError, NotFoundError}
+export { BadRequestError, NotFoundError }

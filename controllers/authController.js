@@ -1,6 +1,6 @@
 import User from '../models/User.js'
-import {StatusCodes} from 'http-status-codes'
-import {BadRequestError, NotFoundError} from '../errors/index.js'
+import { StatusCodes } from 'http-status-codes'
+import { BadRequestError, NotFoundError } from '../errors/index.js'
 
 
 const register = async (req, res) =>{
@@ -17,10 +17,11 @@ const register = async (req, res) =>{
         throw new BadRequestError ('Email already is use')
       }
       
-      const user = await User.create(name, email, password)
+      const user = await User.create({ name, email, password })
+
       //invoking the token
      const token = user.createJWT()
-      res.status(StatusCodes.CREATED).json({user:{email:user.email, lastname:user.lastname, location:user.location, name:user.name }, token, location: user.location})
+      res.status(StatusCodes.CREATED).json({ user:{email:user.email, lastname:user.lastname, location:user.location, name:user.name }, token, location: user.location })
     
 }
 const login = async (req, res) =>{

@@ -14,12 +14,11 @@ const initialState = {
 };
 
 const  Register = () => {
-  // const { user } = useAppContext();
+  
   const navigate = useNavigate();
   const [values, setValues] = useState(initialState);
-
   const { user, isLoading, showAlert, displayAlert, registerUser } = useAppContext()
-  // global context and useNavigate later
+  
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value })
