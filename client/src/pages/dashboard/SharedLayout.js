@@ -1,12 +1,12 @@
 import { Outlet, Link } from 'react-router-dom'
-import Wrapper from '../../assets/wrappers/SharedLayoutCss'
+import Wrapper from '../../assets/wrappers/sharedLayoutCss'
 
 const SharedLayout = () => {
   return (
     <Wrapper>
       <nav>
         <Link to='all-jobs'>all jobs</Link>
-        <Link to='add-job'>all jobs</Link>
+        <Link to='add-job'>add jobs</Link>
       </nav>
       <Outlet />
     </Wrapper>
