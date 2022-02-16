@@ -1,10 +1,10 @@
 import Wrapper from '../assets/wrappers/smallBarCss'
-import {FaHome} from 'react-icons/fa'
+// import {FaHome} from 'react-icons/fa'
 const SmallSidebar = () => {
   return (
     <Wrapper>
       <h4>SmallSidebar</h4>
-      <FaHome />
+      {/* <FaHome /> */}
     </Wrapper>
   )
 }
