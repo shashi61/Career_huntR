@@ -43,8 +43,8 @@ const AppProvider = ({ children }) => {
       });
     }, 3000);
   };
-// Local Storage
 
+// Local Storage
   const addUserToLocalStorage = ({ user, token, location }) => {
     localStorage.setItem('user', JSON.stringify(user))
     localStorage.setItem('token', token)
@@ -65,13 +65,9 @@ const AppProvider = ({ children }) => {
       const { user, token, location } = response.data;
       dispatch({
         type: REGISTER_USER_SUCCESS,
-        payload: { user, token, location, },
-      });
-      addUserToLocalStorage({
-        user,
-        token,
-        location,
+        payload: { user, token, location },
       })
+      addUserToLocalStorage({ user, token, location })
     } catch (error) {
       // console.log(error.response);
       dispatch({
