@@ -7,6 +7,9 @@ import {
   REGISTER_USER_BEGIN,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_ERROR,
+  LOGIN_USER_BEGIN,
+	LOGIN_USER_SUCCESS,
+	LOGIN_USER_ERROR,
 } from "./actions";
 
 // set as default
@@ -78,12 +81,16 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const loginUser = async (currentUser) => {
+
+  }
   return (
     <AppContext.Provider
       value={{
         ...state,
         displayAlert,
         registerUser,
+        loginUser
       }}
     >
       {children}
