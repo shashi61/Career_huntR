@@ -1,6 +1,6 @@
 import AddJob from './AddJob'
-import AllJobs from './AddJob'
-import Profile from './AddJob'
-import SharedLayout from './AddJob'
-import Stats from './AddJob'
+import AllJobs from './AllJobs'
+import Profile from './Profile'
+import SharedLayout from './SharedLayout'
+import Stats from './Stats'
 export {AllJobs, Profile, SharedLayout, Stats, AddJob}
