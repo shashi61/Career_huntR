@@ -1,5 +1,5 @@
 import React, { useReducer, useContext } from 'react'
-import { DISPLAY_ALERT, CLEAR_ALERT } from './actions'
+import { DISPLAY_ALERT, CLEAR_ALERT, TOGGLE_SIDEBAR } from './actions'
 
 import reducer from './reducer'
 
@@ -8,7 +8,8 @@ const initialState = {
   isLoading: false,
   showAlert: false,
   alertText: '',
-  alertType: ''
+  alertType: '',
+  showSidebar: false
 }
 const AppContext = React.createContext()
 
@@ -30,11 +31,16 @@ const AppProvider = ({ children }) => {
     }, 3000)
   }
 
+  const toggleSidebar = () => {
+    dispatch({ type: TOGGLE_SIDEBAR })
+  }
+
   return (
     <AppContext.Provider
       value={{
         ...state,
-      displayAlert
+      displayAlert, 
+      toggleSidebar
       }}
     >
       {children}
