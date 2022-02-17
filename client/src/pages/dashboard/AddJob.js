@@ -79,7 +79,8 @@ const AddJob = () => {
               className='form-select'
               >
             {jobTypeOptions.map((itemValue,index)=>{
-                return <option key={index} value={itemValue}>
+                return 
+                <option key={index} value={itemValue}>
                     {itemValue}
                 </option>
             })}
