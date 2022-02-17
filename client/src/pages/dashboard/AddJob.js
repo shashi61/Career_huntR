@@ -17,6 +17,20 @@ const AddJob = () => {
     } = useAppContext()
 
   
+    const handleSubmit = (e) => {
+        e.preventDefault()
+    
+        if (!position || !company || !jobLocation) {
+          displayAlert()
+          return
+        }
+        if (isEditing) {
+          editJob()
+          return
+        }
+        createJob()
+      }
+      
     const handleJobInput = (e) => { 
         const name = e.target.name
         const value = e.target.value
