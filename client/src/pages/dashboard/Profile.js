@@ -18,10 +18,9 @@ const Profile = () => {
       displayAlert()
       return
     }
-  }
 
     updateUser({ name, email, lastName, location })
-
+  }
   return (
     <Wrapper>
       <form className='form' onSubmit={handleSubmit}>
@@ -64,4 +63,5 @@ const Profile = () => {
     </Wrapper>
   )
 }
+
 export default Profile
