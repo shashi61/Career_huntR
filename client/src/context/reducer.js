@@ -10,7 +10,9 @@ import {
 	SETUP_USER_BEGIN,
 	SETUP_USER_SUCCESS,
 	SETUP_USER_ERROR,
-	TOGGLE_SIDEBAR, LOGOUT_USER 
+	TOGGLE_SIDEBAR, 
+	LOGOUT_USER,
+	HANDLE_CHANGE
 } from "./actions";
 
 import { initialState } from './appContext';
@@ -130,6 +132,12 @@ const reducer = (state, action) => {
 		  jobLocation: '',
 		}
 	  }
+	  if (action.type === HANDLE_CHANGE) {
+			return {
+				...state,
+				[action.payload.name]: action.payload.value,
+			}
+		}
 
 	throw new Error(`no such action :${action.type}`);
 };

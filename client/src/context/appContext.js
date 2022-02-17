@@ -13,7 +13,9 @@ import {
   SETUP_USER_BEGIN,
 	SETUP_USER_SUCCESS,
 	SETUP_USER_ERROR,
-  TOGGLE_SIDEBAR, LOGOUT_USER
+  TOGGLE_SIDEBAR, 
+  LOGOUT_USER,
+  HANDLE_CHANGE
 } from "./actions";
 
 // set as default
@@ -141,6 +143,9 @@ const AppProvider = ({ children }) => {
     removeUserFromLocalStorage()
   }
 
+  const handleChange = ({ name, value }) => {
+    dispatch({ type: HANDLE_CHANGE, payload: { name, value } })
+  }
   return (
     <AppContext.Provider
       value={{
@@ -149,9 +154,9 @@ const AppProvider = ({ children }) => {
         registerUser,
         loginUser,
         setupUser,
-      displayAlert, 
-      toggleSidebar,
-      logoutUser
+        handleChange, 
+        toggleSidebar,
+        logoutUser
       }}
     >
       {children}
