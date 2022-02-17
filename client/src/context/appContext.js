@@ -211,6 +211,14 @@ const AppProvider = ({ children }) => {
     clearAlert() //if there is any alert to hide it
   }
 
+  const setEditJob = (id) => {
+    console.log(`set edit job : ${id}`)
+  }
+  const deleteJob = (id) =>{
+    console.log(`delete : ${id}`)
+  }
+  
+
   // useEffect (() => {
 
   //   getJobs ()
@@ -231,6 +239,8 @@ const AppProvider = ({ children }) => {
         clearValues,
         createJob,
         getJobs,
+        setEditJob,
+        deleteJob
       }}
     >
       {children}
