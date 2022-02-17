@@ -27,8 +27,16 @@ const AddJob = () => {
         <Wrapper>
             <form className='form'>
             <h3>{isEditing ? 'edit job' : 'add job'}</h3>
-           
-          
+            {showAlert && <Alert />}
+            <div className='form-center'>
+            {/* position */}
+            <FormRow
+            type='text'
+            name='position'
+            value={position}
+            handleChange={handleJobInput}
+            />
+            
         </Wrapper>
   )
 }
