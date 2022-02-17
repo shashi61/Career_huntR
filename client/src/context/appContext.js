@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useReducer, useContext } from "react";
 import reducer from "./reducer";
 import axios from "axios";
@@ -14,13 +13,8 @@ import {
   SETUP_USER_BEGIN,
 	SETUP_USER_SUCCESS,
 	SETUP_USER_ERROR,
+  TOGGLE_SIDEBAR, LOGOUT_USER
 } from "./actions";
-=======
-import React, { useReducer, useContext } from 'react'
-import { DISPLAY_ALERT, CLEAR_ALERT, TOGGLE_SIDEBAR, LOGOUT_USER } from './actions'
-
-import reducer from './reducer'
->>>>>>> feature/nested-pages
 
 // set as default
 const token = localStorage.getItem('token')
@@ -30,23 +24,16 @@ const userLocation = localStorage.getItem('location')
 const initialState = {
   isLoading: false,
   showAlert: false,
-<<<<<<< HEAD
   alertText: "",
   alertType: "",
   user: user ? JSON.parse(user) : null,
   token: token,
   userLocation: userLocation || '',
   jobLocation: userLocation || '',
+  showSidebar: false
 };
 
 const AppContext = React.createContext();
-=======
-  alertText: '',
-  alertType: '',
-  showSidebar: false
-}
-const AppContext = React.createContext()
->>>>>>> feature/nested-pages
 
 const AppProvider = ({ children }) => {
   // reducer function will handle dispatch
@@ -118,7 +105,6 @@ const AppProvider = ({ children }) => {
     clearAlert()
   }
 
-<<<<<<< HEAD
   const setupUser = async ({ currentUser, endPoint, alertText }) => {
     dispatch({ type: SETUP_USER_BEGIN })
     try {
@@ -138,31 +124,26 @@ const AppProvider = ({ children }) => {
     }
     clearAlert()
   }
-=======
   const toggleSidebar = () => {
     dispatch({ type: TOGGLE_SIDEBAR })
   }
 
   const logoutUser = () => {
     dispatch({ type: LOGOUT_USER })
-    // removeUserFromLocalStorage()
+    removeUserFromLocalStorage()
   }
 
->>>>>>> feature/nested-pages
   return (
     <AppContext.Provider
       value={{
         ...state,
-<<<<<<< HEAD
         displayAlert,
         registerUser,
         loginUser,
-        setupUser
-=======
+        setupUser,
       displayAlert, 
       toggleSidebar,
       logoutUser
->>>>>>> feature/nested-pages
       }}
     >
       {children}

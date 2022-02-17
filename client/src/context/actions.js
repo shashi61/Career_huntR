@@ -2,7 +2,6 @@
 export const DISPLAY_ALERT = 'SHOW_ALERT'
 export const CLEAR_ALERT = 'CLEAR_ALERT'
 
-<<<<<<< HEAD
 // Action type for register 
 export const REGISTER_USER_BEGIN = 'REGISTER_USER_BEGIN' 
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS' 
@@ -17,10 +16,8 @@ export const LOGIN_USER_ERROR = 'LOGIN_USER_ERROR'
 export const SETUP_USER_BEGIN = 'SETUP_USER_BEGIN'
 export const SETUP_USER_SUCCESS = 'SETUP_USER_SUCCESS'
 export const SETUP_USER_ERROR = 'SETUP_USER_ERROR'
-=======
-export const CLEAR_ALERT = 'CLEAR_ALERT'
+
 
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR'
 
 export const LOGOUT_USER = 'LOGOUT_USER'
->>>>>>> feature/nested-pages

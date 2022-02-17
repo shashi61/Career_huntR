@@ -17,19 +17,10 @@ const register = async (req, res) =>{
         throw new BadRequestError ('Email already is use')
       }
       
-<<<<<<< HEAD
-      const user = await User.create({ name, email, password })
-
-      //invoking the token
-     const token = user.createJWT()
-      res.status(StatusCodes.CREATED).json({ user:{ email:user.email, lastname:user.lastname, location:user.location, name:user.name }, token, location: user.location })
-    
-=======
       const user = await User.create({name, email, password})
       const token = user.createJWT()
       res.status(StatusCodes.CREATED).json({user:{email:user.email, lastname:user.lastname, location:user.location, name:user.name }, token, location: user.location})
 
->>>>>>> feature/nested-pages
 }
 
 const login = async (req, res) => {
