@@ -36,7 +36,34 @@ const AddJob = () => {
             value={position}
             handleChange={handleJobInput}
             />
+            {/* company */}
+            <FormRow
+            type='text'
+            name='company'
+            value={company}
+            handleChange={handleJobInput}
+            />
+            {/* location */}
+            <FormRow
+            type='text'
+            labelText='job location'
+            name='jobLocation'
+            value={jobLocation} 
+            handleChange={handleJobInput}
+            />
+            {/* job status */}
             
+            {/* job type */}
+            <div className="btn-container">
+            <button
+              type='submit'
+              className='btn btn-block submit-btn'
+              onClick={handleSubmit}
+              disabled={isLoading}
+            >
+              submit
+            </button>
+          
         </Wrapper>
   )
 }
