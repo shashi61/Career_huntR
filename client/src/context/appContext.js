@@ -211,6 +211,12 @@ const AppProvider = ({ children }) => {
     clearAlert()
   }
 
+  // useEffect (() => {
+
+  //   getJobs ()
+    
+  // }, [])
+
   return (
     <AppContext.Provider
       value={{
