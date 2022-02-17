@@ -1,14 +1,12 @@
 import { StatusCodes } from 'http-status-codes' 
 import CustomeAPIError from './custom-api.js'
 
-
-class NotFoundError extends CustomeAPIError{
+class UnAuthenticatedError extends CustomeAPIError{
   constructor(message){
     super(message) 
-    this.statusCode = StatusCodes.NOT_FOUND 
+    this.statusCode = StatusCodes.UNAUTHORIZED 
     
   }
 }
 
-export default NotFoundError
-
+export default UnAuthenticatedError

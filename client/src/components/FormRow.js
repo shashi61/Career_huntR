@@ -1,25 +1,18 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-const FormRow = ({ type, name, value, handleChange, fontAwesome}) => {
+const FormRow = ({ type, name, value, handleChange, labelText }) => {
   return (
-    <div className="form-group">
+    <div className='form-row'>
+      <label htmlFor={name} className='form-label'>
+        {labelText || name}
+      </label>
       <input
         type={type}
         value={value}
         name={name}
         onChange={handleChange}
-        className="form-style"
-        placeholder={`Your ${name}`}
-        
-        autoComplete="off"
-      />
-      <FontAwesomeIcon
-        className="input-icon uil uil-at"
-        icon={fontAwesome}
-        fixedWidth
+        className='form-input'
       />
     </div>
-  );
-};
+  )
+}
 
-export default FormRow;
+export default FormRow
