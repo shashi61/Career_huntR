@@ -165,11 +165,26 @@ authFetch.interceptors.response.use(
   }
 
   const updateUser = async (currentUser) => {
-    try {
-      const { data } = await authFetch.patch('/auth/updateUser', currentUser)
-    } catch (error) {
-      console.log(error.response)
-    }
+    dispatch({ type: UPDATE_USER_BEGIN })
+  try {
+    const { data } = await authFetch.patch('/auth/updateUser', currentUser)
+
+    // no token
+    const { user, location, token } = data
+
+    dispatch({
+      type: UPDATE_USER_SUCCESS,
+      payload: { user, location, token },
+    })
+
+    addUserToLocalStorage({ user, location, token })
+  } catch (error) {
+    dispatch({
+      type: UPDATE_USER_ERROR,
+      payload: { msg: error.response.data.msg },
+    })
+  }
+  clearAlert()
   }
 
   return (
