@@ -45,7 +45,7 @@ const AppProvider = ({ children }) => {
 // request interceptor
 authFetch.interceptors.request.use(
   (config) => {
-    //config.headers.common['Authorization'] = `Bearer ${state.token}`
+    // config.headers.common['Authorization'] = `Bearer ${state.token}`
     return config
   },
   (error) => {
@@ -160,7 +160,7 @@ authFetch.interceptors.response.use(
     removeUserFromLocalStorage()
   }
 
-  const updaterUser = async (currentUser) => {
+  const updateUser = async (currentUser) => {
     try {
       const { data } = await authFetch.patch('/auth/updateUser', currentUser)
     } catch (error) {
