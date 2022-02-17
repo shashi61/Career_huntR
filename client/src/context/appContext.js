@@ -155,6 +155,7 @@ authFetch.interceptors.response.use(
     }
     clearAlert()
   }
+  
   const toggleSidebar = () => {
     dispatch({ type: TOGGLE_SIDEBAR })
   }
@@ -192,8 +193,8 @@ authFetch.interceptors.response.use(
       value={{
         ...state,
         displayAlert,
-        registerUser,
-        loginUser,
+        // registerUser,
+        // loginUser,
         setupUser,
       displayAlert, 
       toggleSidebar,
