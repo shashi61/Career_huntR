@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { 
 	DISPLAY_ALERT, 
 	CLEAR_ALERT, 
@@ -13,6 +14,10 @@ import {
 } from "./actions";
 
 import { initialState } from './appContext';
+=======
+import { DISPLAY_ALERT, CLEAR_ALERT, TOGGLE_SIDEBAR, LOGOUT_USER } from "./actions";
+import { initialState } from './appContext'
+>>>>>>> feature/nested-pages
 
 const reducer = (state, action) => {
 	if (action.type === DISPLAY_ALERT) {
@@ -22,15 +27,22 @@ const reducer = (state, action) => {
 			alertType: "danger",
 			alertText: "Please provide all values!",
 		};
+<<<<<<< HEAD
   }
 	if (action.type === CLEAR_ALERT) {
 			return {
+=======
+	}
+	if (action.type === CLEAR_ALERT) {
+		return {
+>>>>>>> feature/nested-pages
 			...state,
 			showAlert: false,
 			alertType: "",
 			alertText: "",
 		};
 	}
+<<<<<<< HEAD
 	// For Register User
 	if (action.type === REGISTER_USER_BEGIN) {
 			return {
@@ -116,6 +128,20 @@ const reducer = (state, action) => {
 			alertText: action.payload.msg,
 		}
 	}
+=======
+	if (action.type === TOGGLE_SIDEBAR) {
+		return { ...state, showSidebar: !state.showSidebar }
+	}
+	if (action.type === LOGOUT_USER) {
+		return {
+		  ...initialState,
+		  user: null,
+		  token: null,
+		  userLocation: '',
+		  jobLocation: '',
+		}
+	  }
+>>>>>>> feature/nested-pages
 
 	throw new Error(`no such action :${action.type}`);
 };
