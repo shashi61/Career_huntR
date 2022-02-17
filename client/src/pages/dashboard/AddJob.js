@@ -17,6 +17,21 @@ const AddJob = () => {
     } = useAppContext()
 
   
+    const handleJobInput = (e) => { 
+        const name = e.target.name
+        const value = e.target.value
+        console.log((`${name}: ${value}`));
+      }
+
+    return (
+        <Wrapper>
+            <form className='form'>
+            <h3>{isEditing ? 'edit job' : 'add job'}</h3>
+           
+          
+        </Wrapper>
+  )
+}
 
 
 
