@@ -230,6 +230,7 @@ const AppProvider = ({ children }) => {
         logoutUser,
         clearValues,
         createJob,
+        getJobs,
       }}
     >
       {children}

@@ -1,6 +1,6 @@
-const Job = () => {
+const Job = ({company}) => {
   return (
-    <h2>single job</h2>
+    <h5>{company}</h5>
   )
 }
 
