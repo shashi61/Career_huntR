@@ -1,19 +1,18 @@
 import React, { useReducer, useContext } from "react";
+
 import reducer from "./reducer";
 import axios from "axios";
 import {
   DISPLAY_ALERT,
   CLEAR_ALERT,
-  REGISTER_USER_BEGIN,
-  REGISTER_USER_SUCCESS,
-  REGISTER_USER_ERROR,
-  LOGIN_USER_BEGIN,
-	LOGIN_USER_SUCCESS,
-	LOGIN_USER_ERROR,
   SETUP_USER_BEGIN,
 	SETUP_USER_SUCCESS,
 	SETUP_USER_ERROR,
-  TOGGLE_SIDEBAR, LOGOUT_USER
+  TOGGLE_SIDEBAR, 
+  LOGOUT_USER,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
 } from "./actions";
 
 // set as default
@@ -45,7 +44,7 @@ const AppProvider = ({ children }) => {
 // request interceptor
 authFetch.interceptors.request.use(
   (config) => {
-    //config.headers.common['Authorization'] = `Bearer ${state.token}`
+    config.headers.common['Authorization'] = `Bearer ${state.token}`
     return config
   },
   (error) => {
@@ -58,11 +57,11 @@ authFetch.interceptors.response.use(
     return response
   },
   (error) => {
-    console.log(error.response)
+    // console.log(error.response)
     if (error.response.status === 401) {
-      console.log('AUTH ERROR')
+        logoutUser();
     }
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
 )
 
@@ -92,46 +91,6 @@ authFetch.interceptors.response.use(
     localStorage.removeItem('location')
   }
 
-  const registerUser = async (currentUser) => {
-    dispatch({ type: REGISTER_USER_BEGIN });
-    try {
-      const response = await axios.post("/api/v1/auth/register", currentUser);
-      const { user, token, location } = response.data;
-      dispatch({
-        type: REGISTER_USER_SUCCESS,
-        payload: { user, token, location },
-      })
-      addUserToLocalStorage({ user, token, location })
-    } catch (error) {
-      dispatch({
-        type: REGISTER_USER_ERROR,
-        payload: { msg: error.response.data.msg },
-      });
-    }
-    clearAlert();
-  };
-
-  const loginUser = async (currentUser) => {
-    dispatch({ type: LOGIN_USER_BEGIN })
-    try {
-      const { data } = await axios.post('/api/v1/auth/login', currentUser)
-      const { user, token, location } = data
-  
-      dispatch({
-        type: LOGIN_USER_SUCCESS,
-        payload: { user, token, location },
-      })
-  
-      addUserToLocalStorage({ user, token, location })
-    } catch (error) {
-      dispatch({
-        type: LOGIN_USER_ERROR,
-        payload: { msg: error.response.data.msg },
-      })
-    }
-    clearAlert()
-  }
-
   const setupUser = async ({ currentUser, endPoint, alertText }) => {
     dispatch({ type: SETUP_USER_BEGIN })
     try {
@@ -151,6 +110,7 @@ authFetch.interceptors.response.use(
     }
     clearAlert()
   }
+  
   const toggleSidebar = () => {
     dispatch({ type: TOGGLE_SIDEBAR })
   }
@@ -160,12 +120,29 @@ authFetch.interceptors.response.use(
     removeUserFromLocalStorage()
   }
 
-  const updaterUser = async (currentUser) => {
-    try {
-      const { data } = await authFetch.patch('/auth/updateUser', currentUser)
-    } catch (error) {
-      console.log(error.response)
-    }
+  const updateUser = async (currentUser) => {
+    dispatch({ type: UPDATE_USER_BEGIN })
+  try {
+    const { data } = await authFetch.patch('/auth/updateUser', currentUser)
+
+    // no token
+    const { user, location, token } = data
+
+    dispatch({
+      type: UPDATE_USER_SUCCESS,
+      payload: { user, location, token },
+    })
+
+    addUserToLocalStorage({ user, location, token })
+  } catch (error) {
+    if(error.response.status !== 401) {
+    dispatch({
+      type: UPDATE_USER_ERROR,
+      payload: { msg: error.response.data.msg },
+    })
+   }
+  }
+  clearAlert()
   }
 
   return (
@@ -173,8 +150,6 @@ authFetch.interceptors.response.use(
       value={{
         ...state,
         displayAlert,
-        registerUser,
-        loginUser,
         setupUser,
       displayAlert, 
       toggleSidebar,
