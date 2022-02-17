@@ -160,17 +160,12 @@ authFetch.interceptors.response.use(
     removeUserFromLocalStorage()
   }
 
-<<<<<<< HEAD
-  const updateUser = async (currentUser) => {
-    console.log(currentUser)
-=======
   const updaterUser = async (currentUser) => {
     try {
       const { data } = await authFetch.patch('/auth/updateUser', currentUser)
     } catch (error) {
       console.log(error.response)
     }
->>>>>>> feature/axios
   }
 
   return (
