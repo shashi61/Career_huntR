@@ -4,6 +4,7 @@ import Wrapper from '../../assets/wrappers/DashboardFormPage'
 
 const AddJob = () => {
     const {
+        isLoading,
         isEditing,
         showAlert,
         displayAlert,
@@ -15,7 +16,9 @@ const AddJob = () => {
         status,
         statusOptions,
         handleChange,
-        clearValues
+        clearValues,
+        createJob,
+        editJob
     } = useAppContext()
 
   
@@ -88,6 +91,8 @@ const AddJob = () => {
               type='submit'
               className='btn btn-block submit-btn'
               onClick={handleSubmit}
+              //prevents user from submitting the form in the middle of the request
+              disabled={isLoading}  
             >
               submit
             </button>

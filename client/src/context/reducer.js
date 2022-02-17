@@ -13,7 +13,10 @@ import {
 	TOGGLE_SIDEBAR, 
 	LOGOUT_USER,
 	HANDLE_CHANGE,
-	CLEAR_VALUES
+	CLEAR_VALUES,
+	CREATE_JOB_BEGIN,
+  CREATE_JOB_SUCCESS,
+  CREATE_JOB_ERROR,
 } from "./actions";
 
 import { initialState } from './appContext';
@@ -134,6 +137,108 @@ const reducer = (state, action) => {
 		}
 	  }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
 		//set up handle change
 	  if (action.type === HANDLE_CHANGE) {
 			return {
@@ -156,6 +261,28 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				...initialState,
+			}
+		}
+		if (action.type === CREATE_JOB_BEGIN) {
+			return { ...state, isLoading: true }
+		}
+	
+		if (action.type === CREATE_JOB_SUCCESS) {
+			return {
+				...state,
+				isLoading: false,
+				showAlert: true,
+				alertType: 'success',
+				alertText: 'New Job Created!',
+			}
+		}
+		if (action.type === CREATE_JOB_ERROR) {
+			return {
+				...state,
+				isLoading: false,
+				showAlert: true,
+				alertType: 'danger',
+				alertText: action.payload.msg,
 			}
 		}
 	throw new Error(`no such action :${action.type}`);
