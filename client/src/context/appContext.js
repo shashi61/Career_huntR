@@ -208,7 +208,7 @@ const AppProvider = ({ children }) => {
     } catch (error) {
       logoutUser()
     }
-    clearAlert()
+    clearAlert() //if there is any alert to hide it
   }
 
   // useEffect (() => {
