@@ -41,6 +41,7 @@ const UserSchema = new mongoose.Schema({
 })
 //will trigger in the authcontroller where a user is being created
 UserSchema.pre('save', async function(){
+<<<<<<< HEAD
  const salt = await bcrypt.genSalt(10);
  this.password = await bcrypt.hash(this.password, salt)
 })
@@ -54,6 +55,16 @@ UserSchema.methods.createJWT = function(){
 UserSchema.methods.comparePassword = async function(candidatePassword) { //candidatePassword is from req.body
   const isMatch = await bcrypt.compare(candidatePassword, this.password);
   return isMatch
+=======
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt)
+ })
+ UserSchema.methods.createJWT = function(){
+  return jwt.sign({userId: this._id}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_LIFETIME})
+>>>>>>> 310367d10b35dff728a5811f8ce70eca7ac96e38
 }
-
+UserSchema.methods.comparePassword = async function (candidatePassword) {
+  const isMatch = await bcrypt.compare(candidatePassword, this.password);
+  return isMatch;
+};
 export default mongoose.model('User', UserSchema);
