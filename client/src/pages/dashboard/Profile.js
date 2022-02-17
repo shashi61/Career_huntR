@@ -20,7 +20,6 @@ const Profile = () => {
     }
 
     updateUser({ name, email, lastName, location })
-  }
 
   return (
     <Wrapper>

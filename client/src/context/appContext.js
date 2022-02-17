@@ -4,16 +4,20 @@ import axios from "axios";
 import {
   DISPLAY_ALERT,
   CLEAR_ALERT,
-  REGISTER_USER_BEGIN,
-  REGISTER_USER_SUCCESS,
-  REGISTER_USER_ERROR,
-  LOGIN_USER_BEGIN,
-	LOGIN_USER_SUCCESS,
-	LOGIN_USER_ERROR,
+  // REGISTER_USER_BEGIN,
+  // REGISTER_USER_SUCCESS,
+  // REGISTER_USER_ERROR,
+  // LOGIN_USER_BEGIN,
+	// LOGIN_USER_SUCCESS,
+	// LOGIN_USER_ERROR,
   SETUP_USER_BEGIN,
 	SETUP_USER_SUCCESS,
 	SETUP_USER_ERROR,
-  TOGGLE_SIDEBAR, LOGOUT_USER
+  TOGGLE_SIDEBAR, 
+  LOGOUT_USER,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
 } from "./actions";
 
 // set as default
@@ -38,6 +42,33 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   // reducer function will handle dispatch
   const [state, dispatch] = useReducer(reducer, initialState);
+  
+  const authFetch = axios.create({
+    baseURL: '/api/v1',
+  })
+// request interceptor
+authFetch.interceptors.request.use(
+  (config) => {
+    //config.headers.common['Authorization'] = `Bearer ${state.token}`
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
+// response interceptor
+authFetch.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  (error) => {
+    console.log(error.response)
+    if (error.response.status === 401) {
+      console.log('AUTH ERROR')
+    }
+    return Promise.reject(error)
+  }
+)
 
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT });
@@ -134,7 +165,11 @@ const AppProvider = ({ children }) => {
   }
 
   const updateUser = async (currentUser) => {
-    console.log(currentUser)
+    try {
+      const { data } = await authFetch.patch('/auth/updateUser', currentUser)
+    } catch (error) {
+      console.log(error.response)
+    }
   }
 
   return (
