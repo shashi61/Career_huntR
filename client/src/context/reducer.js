@@ -12,7 +12,8 @@ import {
 	SETUP_USER_ERROR,
 	TOGGLE_SIDEBAR, 
 	LOGOUT_USER,
-	HANDLE_CHANGE
+	HANDLE_CHANGE,
+	CLEAR_VALUES
 } from "./actions";
 
 import { initialState } from './appContext';
@@ -132,6 +133,8 @@ const reducer = (state, action) => {
 		  jobLocation: '',
 		}
 	  }
+
+		//set up handle change
 	  if (action.type === HANDLE_CHANGE) {
 			return {
 				...state,
@@ -139,6 +142,22 @@ const reducer = (state, action) => {
 			}
 		}
 
+		// set up clear values change
+		if (action.type === CLEAR_VALUES) {
+			const initialState = {
+				isEditing: false,
+				editJobId: '',
+				position: '',
+				company: '',
+				jobLocation: state.userLocation,
+				jobType: 'full-time',
+				status: 'pending',
+			}
+			return {
+				...state,
+				...initialState,
+			}
+		}
 	throw new Error(`no such action :${action.type}`);
 };
 export default reducer;

@@ -15,7 +15,8 @@ import {
 	SETUP_USER_ERROR,
   TOGGLE_SIDEBAR, 
   LOGOUT_USER,
-  HANDLE_CHANGE
+  HANDLE_CHANGE,
+  CLEAR_VALUES
 } from "./actions";
 
 // set as default
@@ -146,6 +147,10 @@ const AppProvider = ({ children }) => {
   const handleChange = ({ name, value }) => {
     dispatch({ type: HANDLE_CHANGE, payload: { name, value } })
   }
+
+  const clearValues = () => {
+    dispatch({ type: CLEAR_VALUES })
+  }
   return (
     <AppContext.Provider
       value={{
@@ -156,7 +161,8 @@ const AppProvider = ({ children }) => {
         setupUser,
         handleChange, 
         toggleSidebar,
-        logoutUser
+        logoutUser,
+        clearValues
       }}
     >
       {children}
