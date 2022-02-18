@@ -151,8 +151,7 @@ authFetch.interceptors.response.use(
         ...state,
         displayAlert,
         setupUser,
-      displayAlert, 
-      toggleSidebar,
+       toggleSidebar,
       logoutUser,
       updateUser
       }}
