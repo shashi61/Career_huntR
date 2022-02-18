@@ -13,16 +13,14 @@ const Home = () => {
         {/* info */}
         <div className='info'>
           <h1>
-            career <span>track</span> app
+            career <span>healer</span> app
           </h1>
           <p>
-            I'm baby wayfarers hoodie next level taiyaki brooklyn cliche blue
-            bottle single-origin coffee chia. Aesthetic post-ironic venmo,
-            quinoa lo-fi tote bag adaptogen everyday carry meggings +1 brunch
-            narwhal.
+            <h4>Organize your Job Search</h4>
+            Track your Job applications and keep your Job Search organized, all in one place.
           </p>
           <Link to="/register" className='btn btn-hero'>
-            Login/Register
+            Sign up for free
           </Link>
         </div>
         <img src={main} alt='job hunt' className='img main-img' />

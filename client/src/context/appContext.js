@@ -2,6 +2,8 @@ import React, { useReducer, useContext, useEffect } from "react";
 
 import reducer from "./reducer";
 import axios from "axios";
+
+// Import Action-type
 import {
   DISPLAY_ALERT,
   CLEAR_ALERT,
@@ -20,14 +22,18 @@ import {
   CREATE_JOB_ERROR,
   GET_JOBS_BEGIN,
   GET_JOBS_SUCCESS,
-  SET_EDIT_JOB
+  SET_EDIT_JOB,
+  SHOW_STATS_BEGIN,
+  SHOW_STATS_SUCCESS,
 } from "./actions";
+
 
 // set as default
 const token = localStorage.getItem('token')
 const user = localStorage.getItem('user')
 const userLocation = localStorage.getItem('location')
 
+//Initialize states
 const initialState = {
   isLoading: false,
   showAlert: false,
@@ -50,6 +56,9 @@ const initialState = {
   totalJobs: 0,
   numOfPages: 1,
   page: 1,
+  showSidebar: false,
+  stats: {},
+  monthlyApplications: [],
 };
 
 const AppContext = React.createContext();
@@ -78,7 +87,6 @@ const AppProvider = ({ children }) => {
     return response
   },
   (error) => {
-    // console.log(error.response)
     if (error.response.status === 401) {
         logoutUser();
     }
@@ -86,6 +94,7 @@ const AppProvider = ({ children }) => {
   }
 )
 
+//Alert methods
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT });
     clearAlert();
@@ -112,6 +121,7 @@ const AppProvider = ({ children }) => {
     localStorage.removeItem('location')
   }
 
+  //Setup User
   const setupUser = async ({ currentUser, endPoint, alertText }) => {
     dispatch({ type: SETUP_USER_BEGIN })
     try {
@@ -141,6 +151,7 @@ const AppProvider = ({ children }) => {
     removeUserFromLocalStorage()
   }
 
+  //Update User
   const updateUser = async (currentUser) => {
     dispatch({ type: UPDATE_USER_BEGIN })
   try {
@@ -241,6 +252,26 @@ const AppProvider = ({ children }) => {
     
   // }, [])
 
+// Show stats
+  const showStats = async () => {
+    dispatch({ type: SHOW_STATS_BEGIN })
+    try {
+      const { data } = await authFetch('/jobs/stats')
+      dispatch({
+        type: SHOW_STATS_SUCCESS,
+        payload: {
+          stats: data.defaultStats,
+          monthlyApplications: data.monthlyApplications,
+        },
+      })
+    } catch (error) {
+console.log(error.response)
+      // logoutUser()
+    }
+
+clearAlert()
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -255,7 +286,8 @@ const AppProvider = ({ children }) => {
         createJob,
         getJobs,
         setEditJob,
-        deleteJob
+        deleteJob,
+        showStats,
       }}
     >
       {children}

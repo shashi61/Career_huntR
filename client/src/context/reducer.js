@@ -16,11 +16,14 @@ import {
   CREATE_JOB_ERROR,
 	GET_JOBS_BEGIN,
   GET_JOBS_SUCCESS,
-	SET_EDIT_JOB
+	SET_EDIT_JOB,
+	SHOW_STATS_BEGIN,
+	SHOW_STATS_SUCCESS,
 } from "./actions";
 
 import { initialState } from './appContext';
 
+// Alerts
 const reducer = (state, action) => {
 	if (action.type === DISPLAY_ALERT) {
 		return {
@@ -73,6 +76,8 @@ const reducer = (state, action) => {
 			alertText: action.payload.msg,
 		}
 	}
+
+	// Toggle and Logout
 	if (action.type === TOGGLE_SIDEBAR) {
 		return { ...state, showSidebar: !state.showSidebar }
 	}
@@ -86,6 +91,7 @@ const reducer = (state, action) => {
 		}
 	}
 
+// Update User
 	if (action.type === UPDATE_USER_BEGIN) {
 		return { ...state, isLoading: true }
 	}
@@ -219,6 +225,19 @@ const reducer = (state, action) => {
 		// 		alertText: action.payload.msg,
 		// 	}
 		// }
+ 
+// Show Stats
+	if (action.type === SHOW_STATS_BEGIN) {
+		return { ...state, isLoading: true, showAlert: false }
+	}
+	if (action.type === SHOW_STATS_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			stats: action.payload.stats,
+			monthlyApplications: action.payload.monthlyApplications,
+		}
+	}
 
 		if (action.type === GET_JOBS_BEGIN) {
 			return { ...state, isLoading: true, showAlert: false }
