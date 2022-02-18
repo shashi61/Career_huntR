@@ -1,11 +1,6 @@
 import User from '../models/User.js'
-<<<<<<< HEAD
-import {StatusCodes} from 'http-status-codes'
-import {BadRequestError, UnAuthenticateError} from '../errors/index.js'
-=======
 import { StatusCodes } from 'http-status-codes'
 import { BadRequestError,UnAuthenticatedError } from '../errors/index.js'
->>>>>>> 310367d10b35dff728a5811f8ce70eca7ac96e38
 
 
 const register = async (req, res) =>{
@@ -22,7 +17,7 @@ const register = async (req, res) =>{
         throw new BadRequestError ('Email already is use')
       }
       
-<<<<<<< HEAD
+
       const user = await User.create(name, email, password)
       user.createJWT()
       //invoking the token
@@ -60,7 +55,7 @@ const login = async (req, res) =>{
   const token = user.createJWT()
 
   res.status(StatusCodes.OK).json({ user, token, location: user.location })
-=======
+
       const user = await User.create({name, email, password})
       const token = user.createJWT()
       res.status(StatusCodes.CREATED).json({user:{email:user.email, lastname:user.lastname, location:user.location, name:user.name }, token, location: user.location})
@@ -88,19 +83,37 @@ const login = async (req, res) => {
   const token = user.createJWT()
   user.password = undefined
   res.status(StatusCodes.OK).json({ user, token, location: user.location })
+
   // res.send('login user');
->>>>>>> 310367d10b35dff728a5811f8ce70eca7ac96e38
+
 }
 
-const updateUser = async (req, res) =>{
-<<<<<<< HEAD
-  res.send(' updateUser ')
-  
-=======
-  res.send("update user")
-  user.save()
+const updateUser = async (req, res) => {
+  const { email, name, lastName, location } = req.body
+  if (!email || !name || !lastName || !location) {
+    throw new BadRequestError('Please provide all values')
+  }
 
->>>>>>> 310367d10b35dff728a5811f8ce70eca7ac96e38
+  const user = await User.findOne({ _id: req.user.userId })
+
+  user.email = email
+  user.name = name
+  user.lastName = lastName
+  user.location = location
+
+  await user.save()
+
+  // various setups
+  // in this case only id
+  // if other properties included, must re-generate
+
+  const token = user.createJWT()
+  res.status(StatusCodes.OK).json({
+    user,
+    token,
+    location: user.location,
+  })
+
 }
 
 export { register, login, updateUser }
