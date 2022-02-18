@@ -160,14 +160,20 @@ authFetch.interceptors.response.use(
     removeUserFromLocalStorage()
   }
 
-  const updaterUser = async (currentUser) => {
+  const updateUser = async (currentUser) => {
     try {
       const { data } = await authFetch.patch('/auth/updateUser', currentUser)
     } catch (error) {
       console.log(error.response)
     }
   }
-
+  
+  const setEditJob = (id) => {
+    dispatch({ type: SET_EDIT_JOB, payload: { id } })
+  }
+  const editJob = () => {
+    console.log('edit job')
+  }
   return (
     <AppContext.Provider
       value={{
@@ -179,7 +185,8 @@ authFetch.interceptors.response.use(
       displayAlert, 
       toggleSidebar,
       logoutUser,
-      updateUser
+      updateUser,
+      editJob
       }}
     >
       {children}
