@@ -13,7 +13,9 @@ import {
   SETUP_USER_BEGIN,
 	SETUP_USER_SUCCESS,
 	SETUP_USER_ERROR,
-  TOGGLE_SIDEBAR, LOGOUT_USER
+  TOGGLE_SIDEBAR, 
+  LOGOUT_USER,
+  SET_EDIT_JOB
 } from "./actions";
 
 // set as default
@@ -168,9 +170,9 @@ authFetch.interceptors.response.use(
     }
   }
   
-  const setEditJob = (id) => {
-    dispatch({ type: SET_EDIT_JOB, payload: { id } })
-  }
+  // const setEditJob = (id) => {
+  //   dispatch({ type: SET_EDIT_JOB, payload: { id } })
+  // }
   const editJob = () => {
     console.log('edit job')
   }
