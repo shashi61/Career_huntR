@@ -9,6 +9,7 @@ dotenv.config()
 
 import 'express-async-errors'
 
+
 // db and authentication
 import connectDB from './db/connect.js'
 
@@ -37,8 +38,8 @@ app.get('/api/v1', (req, res) => {
 
 app.use('/api/v1/auth', authRouter);
 // app.use('/api/v1/jobs', jobsRouter);
-app.use('/api/v1/jobs', authenticateUser, jobsRouter);
 
+app.use('/api/v1/jobs', authenticateUser, jobsRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

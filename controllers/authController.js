@@ -17,7 +17,7 @@ const register = async (req, res) =>{
         throw new BadRequestError ('Email already is use')
       }
       
-
+//JUhi's
       const user = await User.create({name, email, password})
       
       //invoking the token
@@ -43,21 +43,31 @@ const login = async (req, res) =>{
   const user = await User.findOne({ email }).select('+password')
 
   if (!user) {
-    throw new UnAuthenticateError('Invalid Credentials')
+    throw new UnAuthenticatedError('Invalid Credentials')
   }
   console.log(user);
 
   const isPasswordCorrect = await user.comparePassword(password);
 
   if (!isPasswordCorrect) {
-    throw new UnAuthenticateError('Invalid Credentials')
+    throw new UnAuthenticatedError('Invalid Credentials')
   }
   const token = user.createJWT()
 
   res.status(StatusCodes.OK).json({ user, token, location: user.location })
+  //my changes   
+  // const user = await User.create({name, email, password})
+  //     const token = user.createJWT()
+  //     res.status(StatusCodes.CREATED).json({user:{
+  //       email:user.email, 
+  //       lastname:user.lastname, 
+  //       location:user.location, 
+  //       name:user.name }, 
+  //       token, 
+  //       location: user.location})
 
 }
-
+//****my changes ends here */
 const updateUser = async (req, res) => {
   const { email, name, lastName, location } = req.body
   if (!email || !name || !lastName || !location) {
@@ -83,6 +93,27 @@ const updateUser = async (req, res) => {
     token,
     location: user.location,
   })
+//   if (!user) {
+//     throw new UnAuthenticatedError('Invalid Credentials')
+//   }
+  
+//   const isPasswordCorrect = await user.comparePassword(password)
+
+//   if (!isPasswordCorrect) {
+//     throw new UnAuthenticatedError('Invalid Credentials')
+//   }
+//   const token = user.createJWT()
+//   user.password = undefined
+//   res.status(StatusCodes.OK).json({ 
+//     user, 
+//     token, 
+//     location: user.location })
+//   // res.send('login user');
+// }
+
+// const updateUser = async (req, res) =>{
+//   res.send("updateUser")
+//   user.save()
 
 }
 

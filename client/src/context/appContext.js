@@ -1,4 +1,4 @@
-import React, { useReducer, useContext } from "react";
+import React, { useReducer, useContext, useEffect } from "react";
 
 import reducer from "./reducer";
 import axios from "axios";
@@ -13,6 +13,14 @@ import {
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
+  HANDLE_CHANGE,
+  CLEAR_VALUES,
+  CREATE_JOB_BEGIN,
+  CREATE_JOB_SUCCESS,
+  CREATE_JOB_ERROR,
+  GET_JOBS_BEGIN,
+  GET_JOBS_SUCCESS,
+  SET_EDIT_JOB
 } from "./actions";
 
 // set as default
@@ -27,9 +35,21 @@ const initialState = {
   alertType: "",
   user: user ? JSON.parse(user) : null,
   token: token,
-  userLocation: userLocation || '',
+  userLocation: userLocation || '', //use userlocation or provide new value
+  showSidebar: false,
+  isEditing: false,
+  editJobId: '',
+  position: '',
+  company: '',
   jobLocation: userLocation || '',
-  showSidebar: false
+  jobTypeOptions: ['full-time', 'part-time', 'remote', 'internship'],
+  jobType: 'full-time',
+  statusOptions: ['interview', 'declined', 'pending'],
+  status: 'pending',
+  jobs: [],
+  totalJobs: 0,
+  numOfPages: 1,
+  page: 1,
 };
 
 const AppContext = React.createContext();
@@ -42,7 +62,8 @@ const AppProvider = ({ children }) => {
     baseURL: '/api/v1',
   })
 // request interceptor
-authFetch.interceptors.request.use(
+
+  authFetch.interceptors.request.use(
   (config) => {
     config.headers.common['Authorization'] = `Bearer ${state.token}`
     return config
@@ -52,7 +73,7 @@ authFetch.interceptors.request.use(
   }
 )
 // response interceptor
-authFetch.interceptors.response.use(
+  authFetch.interceptors.response.use(
   (response) => {
     return response
   },
@@ -144,6 +165,81 @@ authFetch.interceptors.response.use(
   }
   clearAlert()
   }
+  const handleChange = ({ name, value }) => {
+    dispatch({ type: HANDLE_CHANGE, payload: { name, value } })
+  }
+
+  const clearValues = () => {
+    dispatch({ type: CLEAR_VALUES })
+  }
+//create Job
+  const createJob = async () => {
+    dispatch({ type: CREATE_JOB_BEGIN })
+    try {
+      const { position, company, jobLocation, jobType, status } = state
+      await authFetch.post('/jobs', { 
+        position,
+        company,
+        jobLocation,
+        jobType,
+        status,
+      })
+      
+      dispatch({ type: CREATE_JOB_SUCCESS })
+      dispatch({ type: CLEAR_VALUES })
+    } catch (error) {
+      
+      //condition to avoid error display for 3 seconds
+      if (error.response.status === 401) return
+      dispatch({
+        type: CREATE_JOB_ERROR,
+        payload: { msg: error.response.data.msg },
+      })
+    }
+    clearAlert()
+  }
+
+  //get all jobs
+  const getJobs = async () => {
+   //const { page, search, searchStatus, searchType, sort } = state
+
+    let url = `/jobs`
+    // if (search) {
+    //   url = url + `&search=${search}`
+    // }
+    dispatch({ type: GET_JOBS_BEGIN })
+    try {
+      const { data } = await authFetch(url)
+      const { jobs, totalJobs, numOfPages } = data
+      dispatch({
+        type: GET_JOBS_SUCCESS,
+        payload: { 
+          jobs,
+          totalJobs,
+          numOfPages,
+        },
+      })
+      console.log(">>>>>>>>>>>")
+    } catch (error) {
+      console.log("******",error)
+      logoutUser()
+    }
+    clearAlert() //if there is any alert to hide it
+  }
+
+  const setEditJob = (id) => {
+    dispatch({ type: SET_EDIT_JOB, payload: { id } })
+  }
+  const deleteJob = (id) =>{
+    console.log(`delete : ${id}`)
+  }
+  
+
+  // useEffect (() => {
+
+  //   getJobs ()
+    
+  // }, [])
 
   return (
     <AppContext.Provider
@@ -151,9 +247,15 @@ authFetch.interceptors.response.use(
         ...state,
         displayAlert,
         setupUser,
-       toggleSidebar,
-      logoutUser,
-      updateUser
+        updateUser,
+        handleChange, 
+        toggleSidebar,
+        logoutUser,
+        clearValues,
+        createJob,
+        getJobs,
+        setEditJob,
+        deleteJob
       }}
     >
       {children}
