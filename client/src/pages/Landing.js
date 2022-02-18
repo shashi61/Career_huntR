@@ -1,19 +1,18 @@
-import { Logo } from '../components';
-import main from '../assets/images/main.svg';
-import Wrapper from '../assets/wrappers/homeCss';
-import { Link } from 'react-router-dom';
-
-const Home = () => {
+import main from '../assets/images/main.svg'
+import Wrapper from '../assets/wrappers/LandingPage'
+import { Logo } from '../components'
+import { Link } from 'react-router-dom'
+const Landing = () => {
   return (
     <Wrapper>
       <nav>
-       <Logo/>
+        <Logo />
       </nav>
       <div className='container page'>
         {/* info */}
         <div className='info'>
           <h1>
-            career <span>track</span> app
+            job <span>tracking</span> app
           </h1>
           <p>
             I'm baby wayfarers hoodie next level taiyaki brooklyn cliche blue
@@ -21,7 +20,7 @@ const Home = () => {
             quinoa lo-fi tote bag adaptogen everyday carry meggings +1 brunch
             narwhal.
           </p>
-          <Link to="/register" className='btn btn-hero'>
+          <Link to='/register' className='btn btn-hero'>
             Login/Register
           </Link>
         </div>
@@ -31,4 +30,4 @@ const Home = () => {
   )
 }
 
-export default Home;
+export default Landing
