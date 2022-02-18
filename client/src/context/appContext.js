@@ -2,6 +2,8 @@ import React, { useReducer, useContext } from "react";
 
 import reducer from "./reducer";
 import axios from "axios";
+
+// Import Action-type
 import {
   DISPLAY_ALERT,
   CLEAR_ALERT,
@@ -15,11 +17,13 @@ import {
   UPDATE_USER_ERROR,
 } from "./actions";
 
+
 // set as default
 const token = localStorage.getItem('token')
 const user = localStorage.getItem('user')
 const userLocation = localStorage.getItem('location')
 
+//Initialize states
 const initialState = {
   isLoading: false,
   showAlert: false,
@@ -29,7 +33,9 @@ const initialState = {
   token: token,
   userLocation: userLocation || '',
   jobLocation: userLocation || '',
-  showSidebar: false
+  showSidebar: false,
+  stats: {},
+  monthlyApplications: [],
 };
 
 const AppContext = React.createContext();
@@ -57,7 +63,6 @@ authFetch.interceptors.response.use(
     return response
   },
   (error) => {
-    // console.log(error.response)
     if (error.response.status === 401) {
         logoutUser();
     }
@@ -65,6 +70,7 @@ authFetch.interceptors.response.use(
   }
 )
 
+//Alert methods
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT });
     clearAlert();
@@ -91,6 +97,7 @@ authFetch.interceptors.response.use(
     localStorage.removeItem('location')
   }
 
+  //Setup User
   const setupUser = async ({ currentUser, endPoint, alertText }) => {
     dispatch({ type: SETUP_USER_BEGIN })
     try {
@@ -120,6 +127,7 @@ authFetch.interceptors.response.use(
     removeUserFromLocalStorage()
   }
 
+  //Update User
   const updateUser = async (currentUser) => {
     dispatch({ type: UPDATE_USER_BEGIN })
   try {
@@ -145,16 +153,37 @@ authFetch.interceptors.response.use(
   clearAlert()
   }
 
+// Show stats
+  const showStats = async () => {
+    dispatch({ type: SHOW_STATS_BEGIN })
+    try {
+      const { data } = await authFetch('/jobs/stats')
+      dispatch({
+        type: SHOW_STATS_SUCCESS,
+        payload: {
+          stats: data.defaultStats,
+          monthlyApplications: data.monthlyApplications,
+        },
+      })
+    } catch (error) {
+console.log(error.response)
+      // logoutUser()
+    }
+
+clearAlert()
+  }
+
   return (
     <AppContext.Provider
       value={{
         ...state,
         displayAlert,
         setupUser,
-      displayAlert, 
-      toggleSidebar,
-      logoutUser,
-      updateUser
+        displayAlert, 
+        toggleSidebar,
+        logoutUser,
+        updateUser,
+        showStats,
       }}
     >
       {children}
