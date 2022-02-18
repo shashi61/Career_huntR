@@ -8,7 +8,6 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import 'express-async-errors'
-import morgan from 'morgan'
 
 // db and authentication
 import connectDB from './db/connect.js'
@@ -22,14 +21,8 @@ import notFoundMiddleware from "./middleware/not-found.js"
 import errorHandlerMiddleware from './middleware/error-handler.js'
 import authenticateUser from './middleware/auth.js'
 
-<<<<<<< HEAD
-
-if(process.env.NODE_ENV !== 'production') {
-  app.use(morgan('dev')) //using dev for colored output response
-=======
 if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'))
->>>>>>> 310367d10b35dff728a5811f8ce70eca7ac96e38
 }
 app.use(express.json());
 
