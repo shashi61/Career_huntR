@@ -1,4 +1,4 @@
-import React, { useReducer, useContext } from "react";
+import React, { useReducer, useContext, useEffect } from "react";
 
 import reducer from "./reducer";
 import axios from "axios";
@@ -26,6 +26,7 @@ import {
   CREATE_JOB_ERROR,
   GET_JOBS_BEGIN,
   GET_JOBS_SUCCESS,
+  SET_EDIT_JOB
 } from "./actions";
 
 // set as default
@@ -42,6 +43,15 @@ const initialState = {
   token: token,
   userLocation: userLocation || '', //use userlocation or provide new value
   showSidebar: false,
+  isEditing: false,
+  editJobId: '',
+  position: '',
+  company: '',
+  jobLocation: userLocation || '',
+  jobTypeOptions: ['full-time', 'part-time', 'remote', 'internship'],
+  jobType: 'full-time',
+  statusOptions: ['interview', 'declined', 'pending'],
+  status: 'pending',
   jobs: [],
   totalJobs: 0,
   numOfPages: 1,
@@ -219,9 +229,11 @@ const AppProvider = ({ children }) => {
         jobType,
         status,
       })
+      
       dispatch({ type: CREATE_JOB_SUCCESS })
       dispatch({ type: CLEAR_VALUES })
     } catch (error) {
+      
       //condition to avoid error display for 3 seconds
       if (error.response.status === 401) return
       dispatch({
@@ -234,7 +246,7 @@ const AppProvider = ({ children }) => {
 
   //get all jobs
   const getJobs = async () => {
-   const { page, search, searchStatus, searchType, sort } = state
+   //const { page, search, searchStatus, searchType, sort } = state
 
     let url = `/jobs`
     // if (search) {
@@ -252,14 +264,16 @@ const AppProvider = ({ children }) => {
           numOfPages,
         },
       })
+      console.log(">>>>>>>>>>>")
     } catch (error) {
+      console.log("******",error)
       logoutUser()
     }
     clearAlert() //if there is any alert to hide it
   }
 
   const setEditJob = (id) => {
-    console.log(`set edit job : ${id}`)
+    dispatch({ type: SET_EDIT_JOB, payload: { id } })
   }
   const deleteJob = (id) =>{
     console.log(`delete : ${id}`)
