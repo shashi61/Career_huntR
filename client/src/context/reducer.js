@@ -9,10 +9,13 @@ import {
 	UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
+	SHOW_STATS_BEGIN,
+	SHOW_STATS_SUCCESS,
 } from "./actions";
 
 import { initialState } from './appContext';
 
+// Alerts
 const reducer = (state, action) => {
 	if (action.type === DISPLAY_ALERT) {
 		return {
@@ -58,6 +61,8 @@ const reducer = (state, action) => {
 			alertText: action.payload.msg,
 		}
 	}
+
+	// Toggle and Logout
 	if (action.type === TOGGLE_SIDEBAR) {
 		return { ...state, showSidebar: !state.showSidebar }
 	}
@@ -71,6 +76,7 @@ const reducer = (state, action) => {
 		}
 	}
 
+// Update User
 	if (action.type === UPDATE_USER_BEGIN) {
 		return { ...state, isLoading: true }
 	}
@@ -95,6 +101,19 @@ const reducer = (state, action) => {
 			showAlert: true,
 			alertType: 'danger',
 			alertText: action.payload.msg,
+		}
+	}
+ 
+// Show Stats
+	if (action.type === SHOW_STATS_BEGIN) {
+		return { ...state, isLoading: true, showAlert: false }
+	}
+	if (action.type === SHOW_STATS_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			stats: action.payload.stats,
+			monthlyApplications: action.payload.monthlyApplications,
 		}
 	}
 
