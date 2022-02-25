@@ -27,6 +27,6 @@ Install dependencies with npm install.
 ### Technical specification
 MongoDB, Express, React and NodeJS (MERN stack)
 
-![Landing](docs/All-jobs.png)
-![Create-Job](docs/Dashboard_Career_HuntR.png)
-![Dashboard](docs/Landing_Career_HuntR.png)
+![Landing](https://github.com/shashi61/Career_huntR/blob/master/docs/Landing_Career_HuntR.png)
+![All-Jobs](https://github.com/shashi61/Career_huntR/blob/master/docs/All-jobs.png)
+![Dashboard](https://github.com/shashi61/Career_huntR/blob/master/docs/Dashboard_Career_HuntR.png)
