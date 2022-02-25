@@ -44,7 +44,7 @@ const Wrapper = styled.nav`
     top: 40px;
     left: 0;
     width: 100%;
-    background: var(--primary-100);
+    background: var(--blue-50);
     box-shadow: var(--shadow-2);
     padding: 0.5rem;
     text-align: center;

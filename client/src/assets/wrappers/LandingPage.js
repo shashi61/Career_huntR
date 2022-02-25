@@ -9,7 +9,11 @@ const Wrapper = styled.main`
     display: flex;
     align-items: center;
   }
-  
+  nav .logo{
+    width: 12rem;
+    height: 12rem;
+  }
+
   .page {
     min-height: calc(100vh - var(--nav-height));
     display: grid;
@@ -18,12 +22,13 @@ const Wrapper = styled.main`
   }
   h1 {
     font-weight: 700;
+    color: var(--primary-300);
     span {
       color: var(--primary-500);
     }
   }
   p {
-    color: var(--grey-600);
+    color: var(--white);
   }
   .main-img {
     display: none;

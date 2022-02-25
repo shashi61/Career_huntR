@@ -1,10 +1,10 @@
 import { useAppContext } from '../context/appContext'
 import NavLinks from './NavLinks'
 import Logo from '../components/Logo'
-import Wrapper from '../assets/wrappers/bigBarCss'
+import Wrapper from '../assets/wrappers/BigSidebar'
 
 const BigSidebar = () => {
-  const { showSidebar, toggleSidebar } = useAppContext()
+  const { showSidebar } = useAppContext()
   return (
     <Wrapper>
       <div
@@ -16,7 +16,7 @@ const BigSidebar = () => {
           <header>
             <Logo />
           </header>
-          <NavLinks toggleSidebar={toggleSidebar}/>
+          <NavLinks />
         </div>
       </div>
     </Wrapper>
