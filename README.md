@@ -14,9 +14,9 @@ unanswered applications.
 
 In the project directory, you can run:
 
-### `npm start` 
-### `npm run client` For Client
-### `npm run server` For Server
+`npm start` 
+`npm run client` For Client
+`npm run server` For Server
 
 - visit url http://localhost:3000/ for client 
 - visit url http://localhost:5000/ for server 
